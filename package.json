@@ -1,0 +1,88 @@
+{
+  "name": "zuppercase",
+  "displayName": "zUpperCase",
+  "icon": "Imagens/zUpperCase.png",
+  "publisher": "DavidCanto",
+  "repository": {
+    "url": "https://github.com/davidcphoto/zUpperCase.git"
+  },
+  "keywords": [
+    "cobol",
+    "mainframe",
+    "David Canto",
+    "zos",
+    "copybook",
+    "rexx",
+    "jcl",
+    "Hlasm",
+    "uppercase"
+  ],
+  "description": "Automatacy convert stroked keys to uppercase of Cobol, Jcl, Rexx, Hlasm languanges",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Formatters"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "zuppercase.Mudar",
+        "title": "zUpperCase - Toggle case"
+      }
+    ],
+    "configuration": {
+      "title": "zUpperCase",
+      "properties": {
+        "zUpperCase.UpperCaseCobolDocumentos": {
+          "type": "boolean",
+          "markdownDescription": "When active writing ***cobol*** documents automatically will be converted to upper case.",
+          "order": 1,
+          "default": true,
+          "additionalProperties": false
+        },
+        "zUpperCase.UpperCaseJCLDocumentos": {
+          "type": "boolean",
+          "markdownDescription": "When active writing ***jcl*** documents automatically will be converted to upper case.",
+          "order": 2,
+          "default": true,
+          "additionalProperties": false
+        },
+        "zUpperCase.UpperCaseRexxDocumentos": {
+          "type": "boolean",
+          "markdownDescription": "When active writing ***rexx*** documents automatically will be converted to upper case.",
+          "order": 3,
+          "default": true,
+          "additionalProperties": false
+        },
+        "zUpperCase.UpperCaseHlasmDocumentos": {
+          "type": "boolean",
+          "markdownDescription": "When active writing ***HighHigh Level Assembler*** documents automatically will be converted to upper case.",
+          "order": 4,
+          "default": true,
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.100.0",
+    "@types/mocha": "^10.0.2",
+    "@types/node": "18.x",
+    "eslint": "^8.50.0",
+    "glob": "^10.3.3",
+    "mocha": "^10.2.0",
+    "typescript": "^5.2.2",
+    "@vscode/test-electron": "^2.3.4"
+  }
+}
