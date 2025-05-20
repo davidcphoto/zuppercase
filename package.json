@@ -1,7 +1,7 @@
 {
   "name": "zuppercase",
   "displayName": "zUpperCase",
-  "icon": "imagens\\zUperCase.png",
+  "icon": "imagens\\zUpperCase.png",
   "publisher": "DavidCanto",
   "repository": {
     "url": "https://github.com/davidcphoto/zuppercase.git"
