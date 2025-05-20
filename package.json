@@ -1,10 +1,10 @@
 {
   "name": "zuppercase",
   "displayName": "zUpperCase",
-  "icon": "Imagens/zUpperCase.png",
+  "icon": "imagens\\zUperCase.png",
   "publisher": "DavidCanto",
   "repository": {
-    "url": "https://github.com/davidcphoto/zUpperCase.git"
+    "url": "https://github.com/davidcphoto/zuppercase.git"
   },
   "keywords": [
     "cobol",
