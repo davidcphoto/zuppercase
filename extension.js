@@ -29,10 +29,10 @@ function activate(context) {
 		Statusbar();
 
 		Utexto = Alterações.contentChanges[0];
-		const validaCobol = vscode.workspace.getConfiguration('zUpperCase').get('UpperCaseCobolDocumentos');
-		const validaJcl = vscode.workspace.getConfiguration('zUpperCase').get('UpperCaseJclDocumentos');
-		const validaRexx = vscode.workspace.getConfiguration('zUpperCase').get('UpperCaseRexxDocumentos');
-		const validaHlasm = vscode.workspace.getConfiguration('zUpperCase').get('UpperCaseHlasmDocumentos');
+		const validaCobol = vscode.workspace.getConfiguration('zCase').get('UpperCaseCobolDocumentos');
+		const validaJcl = vscode.workspace.getConfiguration('zCase').get('UpperCaseJclDocumentos');
+		const validaRexx = vscode.workspace.getConfiguration('zCase').get('UpperCaseRexxDocumentos');
+		const validaHlasm = vscode.workspace.getConfiguration('zCase').get('UpperCaseHlasmDocumentos');
 
 
 		if ((Alterações.document.languageId == "cobol" && validaCobol) ||
@@ -87,19 +87,19 @@ function activate(context) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "zuppercase" is now active!');
+	console.log('Congratulations, your extension "zCase" is now active!');
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with  registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('zuppercase.Mudar', function () {
+	let disposable = vscode.commands.registerCommand('zCase.Mudar', function () {
 		// The code you place here will be executed every time your command is executed
 
 		const Linguagem = vscode.window.activeTextEditor.document.languageId;
 		const linguagemCapitalized = Linguagem.charAt(0).toUpperCase() + Linguagem.slice(1);
 		let LinguagemCase = true;
-		LinguagemCase = vscode.workspace.getConfiguration('zUpperCase').get(`UpperCase${linguagemCapitalized}Documentos`);
-		vscode.workspace.getConfiguration('zUpperCase').update(`UpperCase${linguagemCapitalized}Documentos`, !LinguagemCase).then(() => {
+		LinguagemCase = vscode.workspace.getConfiguration('zCase').get(`UpperCase${linguagemCapitalized}Documentos`);
+		vscode.workspace.getConfiguration('zCase').update(`UpperCase${linguagemCapitalized}Documentos`, !LinguagemCase).then(() => {
 
 			Statusbar();
 
@@ -113,7 +113,7 @@ function activate(context) {
 	myStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
 	Statusbar();
 
-	// statusBarItem.command = 'zuppercase.Mudar';
+	// statusBarItem.command = 'zCase.Mudar';
 
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(myStatusBarItem);
@@ -133,7 +133,7 @@ function Statusbar() {
 	if (["cobol", "rexx", "jcl", "hlasm"].includes(Linguagem)) {
 		const linguagemCapitalized = Linguagem.charAt(0).toUpperCase() + Linguagem.slice(1);
 		let LinguagemCase = true;
-		LinguagemCase = vscode.workspace.getConfiguration('zUpperCase').get(`UpperCase${linguagemCapitalized}Documentos`);
+		LinguagemCase = vscode.workspace.getConfiguration('zCase').get(`UpperCase${linguagemCapitalized}Documentos`);
 		let icon = '';
 
 		if (LinguagemCase) {
@@ -142,10 +142,10 @@ function Statusbar() {
 			icon = "$(stop)";
 		}
 
-		myStatusBarItem.command = 'zuppercase.Mudar';
-		myStatusBarItem.name = 'zUpperCase';
-		myStatusBarItem.text = `zUpperCase ${icon}`;
-		myStatusBarItem.tooltip = `zUpperCase - Uppercase for the language ${vscode.window.activeTextEditor.document.languageId} is ${LinguagemCase}`;
+		myStatusBarItem.command = 'zCase.Mudar';
+		myStatusBarItem.name = 'zCase';
+		myStatusBarItem.text = `zCase ${icon}`;
+		myStatusBarItem.tooltip = `zCase - Uppercase for the language ${vscode.window.activeTextEditor.document.languageId} is ${LinguagemCase}`;
 		myStatusBarItem.show();
 	} else {
 		myStatusBarItem.hide();
