@@ -1,7 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
-let Alteração = true;
 let Utexto;
 
 let myStatusBarItem;
@@ -36,59 +35,57 @@ function activate(context) {
 			const validaRexx = vscode.workspace.getConfiguration('zCase').get('UpperCaseRexxDocumentos');
 			const validaHlasm = vscode.workspace.getConfiguration('zCase').get('UpperCaseHlasmDocumentos');
 
-			if(Alteração) {
+			// if (Alteração) {
 
-				for (let i = 0; i < Alterações.contentChanges.length; i++) {
+			if ((Alterações.document.languageId == "cobol" && validaCobol) ||
+				(Alterações.document.languageId == "jcl" && validaJcl) ||
+				(Alterações.document.languageId == "rexx" && validaRexx) ||
+				(Alterações.document.languageId == "hlasm" && validaHlasm)) {
 
-					Utexto = Alterações.contentChanges[i];
+				vscode.window.activeTextEditor.edit(edit => {
 
-					if ((Alterações.document.languageId == "cobol" && validaCobol) ||
-						(Alterações.document.languageId == "jcl" && validaJcl) ||
-						(Alterações.document.languageId == "rexx" && validaRexx) ||
-						(Alterações.document.languageId == "hlasm" && validaHlasm)) {
+					for (let i = 0; i < Alterações.contentChanges.length; i++) {
+
+						Utexto = Alterações.contentChanges[i];
 
 
 
 
 						if (Utexto.text != Utexto.text.toUpperCase()) {
 
-							vscode.window.activeTextEditor.edit(edit => {
 
 
-								let linhaInicio = 0;
-								let linhaFim = 0;
-								let inicio = 0;
-								let fim = 0;
+							let linhaInicio = 0;
+							let linhaFim = 0;
+							let inicio = 0;
+							let fim = 0;
 
-								linhaInicio = Utexto.range.start.line;
-								inicio = Utexto.range.start.character;
+							linhaInicio = Utexto.range.start.line;
+							inicio = Utexto.range.start.character;
 
-								if (Utexto.rangeLength.length == 1) {
-									linhaFim = Utexto.range.end.line;
-									fim = Alterações.contentChanges[i].range.end.character + 1;
-								} else {
-									linhaFim = Utexto.range.start.line;
-									fim = Alterações.contentChanges[i].range.start.character + 1;
-								}
-
-
-								const Inicio = new vscode.Position(linhaInicio, inicio);
-								const Fim = new vscode.Position(linhaFim, fim);
+							if (Utexto.text.length == 1) {
+								linhaFim = Utexto.range.end.line;
+								fim = Alterações.contentChanges[i].range.end.character + 1;
+							} else {
+								linhaFim = Utexto.range.start.line;
+								fim = Alterações.contentChanges[i].range.start.character + 1;
+							}
 
 
+							let Inicio = new vscode.Position(linhaInicio, inicio);
+							let Fim = new vscode.Position(linhaFim, fim);
 
-								const Utextotext = String(Utexto.text).toUpperCase();
-								const UtextoRange = new vscode.Range(Inicio, Fim);
-								edit.replace(UtextoRange, Utextotext);
-								Alteração[i] = false;
-							})
+
+
+							let Utextotext = String(Utexto.text).toUpperCase();
+							let UtextoRange = new vscode.Range(Inicio, Fim);
+							edit.replace(UtextoRange, Utextotext)
+
 
 						}
 					}
-				}
+				})
 			}
-		} else {
-			Alteração = true;
 		}
 	})
 
