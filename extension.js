@@ -36,7 +36,7 @@ function activate(context) {
 			const validaRexx = vscode.workspace.getConfiguration('zCase').get('UpperCaseRexxDocumentos');
 			const validaHlasm = vscode.workspace.getConfiguration('zCase').get('UpperCaseHlasmDocumentos');
 
-			IF(Alteração) {
+			if(Alteração) {
 
 				for (let i = 0; i < Alterações.contentChanges.length; i++) {
 
