@@ -62,12 +62,11 @@ function activate(context) {
 
 							linhaInicio = Utexto.range.start.line;
 							inicio = Utexto.range.start.character;
+							linhaFim = Utexto.range.start.line;
 
 							if (Utexto.text.length == 1) {
-								linhaFim = Utexto.range.end.line;
-								fim = Alterações.contentChanges[i].range.end.character + 1;
+								fim = inicio + 1;
 							} else {
-								linhaFim = Utexto.range.start.line;
 								fim = Alterações.contentChanges[i].range.start.character + 1;
 							}
 
