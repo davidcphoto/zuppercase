@@ -37,34 +37,90 @@
       }
     ],
     "configuration": {
-      "title": "zCase",
+      "title": "zCase definitions",
       "properties": {
-        "zCase.UpperCaseCobolDocumentos": {
+        "Cobol.UpperCaseCobolDocumentos": {
           "type": "boolean",
           "markdownDescription": "When active writing ***cobol*** documents automatically will be converted to upper case.",
-          "order": 1,
+          "order": 10,
           "default": true,
           "additionalProperties": false
         },
-        "zCase.UpperCaseJCLDocumentos": {
+        "Cobol.UpperCaseComments": {
+          "type": "boolean",
+          "markdownDescription": "Will be active when writing ***cobol comments***.",
+          "order": 11,
+          "default": false,
+          "additionalProperties": false
+        },
+        "Cobol.UpperCaseString": {
+          "type": "boolean",
+          "markdownDescription": "Will be active when writing text bettewn ***'*** or ***\"***.",
+          "order": 12,
+          "default": false,
+          "additionalProperties": false
+        },
+        "Jcl.UpperCaseJclDocumentos": {
           "type": "boolean",
           "markdownDescription": "When active writing ***jcl*** documents automatically will be converted to upper case.",
-          "order": 2,
+          "order": 20,
           "default": true,
           "additionalProperties": false
         },
-        "zCase.UpperCaseRexxDocumentos": {
+        "Jcl.UpperCaseComments": {
+          "type": "boolean",
+          "markdownDescription": "Will be active when writing ***JCL comments***.",
+          "order": 21,
+          "default": false,
+          "additionalProperties": false
+        },
+        "Jcl.UpperCaseString": {
+          "type": "boolean",
+          "markdownDescription": "Will be active when writing text bettewn ***'*** or ***\"***.",
+          "order": 22,
+          "default": false,
+          "additionalProperties": false
+        },
+        "Rexx.UpperCaseRexxDocumentos": {
           "type": "boolean",
           "markdownDescription": "When active writing ***rexx*** documents automatically will be converted to upper case.",
-          "order": 3,
+          "order": 30,
           "default": true,
           "additionalProperties": false
         },
-        "zCase.UpperCaseHlasmDocumentos": {
+        "Rexx.UpperCaseComments": {
+          "type": "boolean",
+          "markdownDescription": "Will be active when writing ***rexx comments***.",
+          "order": 31,
+          "default": false,
+          "additionalProperties": false
+        },
+        "Rexx.UpperCaseString": {
+          "type": "boolean",
+          "markdownDescription": "Will be active when writing text bettewn ***'*** or ***\"***.",
+          "order": 32,
+          "default": false,
+          "additionalProperties": false
+        },
+        "Hlasm.UpperCaseHlasmDocumentos": {
           "type": "boolean",
           "markdownDescription": "When active writing ***HighHigh Level Assembler*** documents automatically will be converted to upper case.",
-          "order": 4,
+          "order": 40,
           "default": true,
+          "additionalProperties": false
+        },
+        "Hlasm.UpperCaseComments": {
+          "type": "boolean",
+          "markdownDescription": "Will be active when writing ***hlasm comments***.",
+          "order": 41,
+          "default": false,
+          "additionalProperties": false
+        },
+        "Hlasm.UpperCaseString": {
+          "type": "boolean",
+          "markdownDescription": "Will be active when writing text bettewn ***'*** or ***\"***.",
+          "order": 42,
+          "default": false,
           "additionalProperties": false
         }
       }

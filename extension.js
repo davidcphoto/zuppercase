@@ -30,12 +30,22 @@ function activate(context) {
 		if (Alterações.reason == undefined) {
 
 
-			const validaCobol = vscode.workspace.getConfiguration('zCase').get('UpperCaseCobolDocumentos');
-			const validaJcl = vscode.workspace.getConfiguration('zCase').get('UpperCaseJclDocumentos');
-			const validaRexx = vscode.workspace.getConfiguration('zCase').get('UpperCaseRexxDocumentos');
-			const validaHlasm = vscode.workspace.getConfiguration('zCase').get('UpperCaseHlasmDocumentos');
+			const validaCobol = vscode.workspace.getConfiguration('Cobol').get('UpperCaseCobolDocumentos');
+			const CobolUpperCaseComments = vscode.workspace.getConfiguration('Cobol').get('UpperCaseComments');
+			const CobolUpperCaseString = vscode.workspace.getConfiguration('Cobol').get('UpperCaseString');
+
+			const validaJcl = vscode.workspace.getConfiguration('Jcl').get('UpperCaseJclDocumentos');
+			const JclUpperCaseComments = vscode.workspace.getConfiguration('Jcl').get('UpperCaseComments');
+			const JclUpperCaseString = vscode.workspace.getConfiguration('Jcl').get('UpperCaseString');
+			const validaRexx = vscode.workspace.getConfiguration('Rexx').get('UpperCaseRexxDocumentos');
+			const RexxUpperCaseComments = vscode.workspace.getConfiguration('Rexx').get('UpperCaseComments');
+			const RexxUpperCaseString = vscode.workspace.getConfiguration('Rexx').get('UpperCaseString');
+			const validaHlasm = vscode.workspace.getConfiguration('Hlasm').get('UpperCaseHlasmDocumentos');
+			const HlasmUpperCaseComments = vscode.workspace.getConfiguration('Hlasm').get('UpperCaseComments');
+			const HlasmUpperCaseString = vscode.workspace.getConfiguration('Hlasm').get('UpperCaseString');
 
 			// if (Alteração) {
+
 
 			if ((Alterações.document.languageId == "cobol" && validaCobol) ||
 				(Alterações.document.languageId == "jcl" && validaJcl) ||
@@ -43,44 +53,115 @@ function activate(context) {
 				(Alterações.document.languageId == "hlasm" && validaHlasm)) {
 
 				vscode.window.activeTextEditor.edit(edit => {
+					let ativo = true;
 
 					for (let i = 0; i < Alterações.contentChanges.length; i++) {
 
 						Utexto = Alterações.contentChanges[i];
 
+						const linha = Utexto.range.start.line;
+						const coluna = Utexto.range.start.character;
+
+						let textoLinha = '';
+
+						const inicioLinha = new vscode.Position(linha, 0);
+						const fimLinha = new vscode.Position(linha, coluna);
+						const rangeEsquerda = new vscode.Range(inicioLinha, fimLinha);
+						textoLinha = vscode.window.activeTextEditor.document.getText(rangeEsquerda);
+
+
+						const texto1 = textoLinha.split("'").length - 1;
+						const texto2 = textoLinha.split('"').length - 1;
+
+						switch (Alterações.document.languageId) {
+							case "cobol":
+
+								if (textoLinha.charAt(6) == '*' && !CobolUpperCaseComments) {
+									ativo = false;
+								}
+								if ((texto1 & 1 && !CobolUpperCaseString) || (texto2 & 1 && !CobolUpperCaseString)) {
+									ativo = false;
+								}
+
+								break;
+
+							case "jcl":
+
+								if (textoLinha.substring(0, 3) == '//*' && !JclUpperCaseComments) {
+									ativo = false;
+								}
+								if ((texto1 & 1 && !JclUpperCaseString) || (texto2 & 1 && !JclUpperCaseString)) {
+									ativo = false;
+								}
+
+								break;
+
+							case "rexx":
+
+								let textoLinhaRexx = '';
+								const inicioLinhaRexx = new vscode.Position(0, 0);
+								const rangeEsquerdaRexx = new vscode.Range(inicioLinhaRexx, fimLinha);
+								textoLinhaRexx = vscode.window.activeTextEditor.document.getText(rangeEsquerdaRexx);
+
+								if (textoLinhaRexx.lastIndexOf('/*') > textoLinhaRexx.lastIndexOf('*/') && !RexxUpperCaseComments) {
+									ativo = false;
+								}
+								if ((texto1 & 1 && !RexxUpperCaseString) || (texto2 & 1 && !RexxUpperCaseString)) {
+									ativo = false;
+								}
+
+								break;
+
+							case "hlasm":
+
+								if (textoLinha.indexOf('*') >= 0 && !HlasmUpperCaseComments) {
+									ativo = false;
+								}
+								if ((texto1 & 1 && !HlasmUpperCaseString) || (texto2 & 1 && !HlasmUpperCaseString)) {
+									ativo = false;
+								}
+
+								break;
+
+						}
 
 
 
-						if (Utexto.text != Utexto.text.toUpperCase()) {
+						if (ativo) {
 
 
 
-							let linhaInicio = 0;
-							let linhaFim = 0;
-							let inicio = 0;
-							let fim = 0;
+							if (Utexto.text != Utexto.text.toUpperCase()) {
 
-							linhaInicio = Utexto.range.start.line;
-							inicio = Utexto.range.start.character;
-							linhaFim = Utexto.range.start.line;
 
-							if (Utexto.text.length == 1) {
-								fim = inicio + 1;
-							} else {
-								fim = Alterações.contentChanges[i].range.start.character + 1;
+
+								let linhaInicio = 0;
+								let linhaFim = 0;
+								let inicio = 0;
+								let fim = 0;
+
+								linhaInicio = Utexto.range.start.line;
+								inicio = Utexto.range.start.character;
+								linhaFim = Utexto.range.start.line;
+
+								if (Utexto.text.length == 1) {
+									fim = inicio + 1;
+								} else {
+									fim = Alterações.contentChanges[i].range.start.character + 1;
+								}
+
+
+								let Inicio = new vscode.Position(linhaInicio, inicio);
+								let Fim = new vscode.Position(linhaFim, fim);
+
+
+
+								let Utextotext = String(Utexto.text).toUpperCase();
+								let UtextoRange = new vscode.Range(Inicio, Fim);
+								edit.replace(UtextoRange, Utextotext)
+
+
 							}
-
-
-							let Inicio = new vscode.Position(linhaInicio, inicio);
-							let Fim = new vscode.Position(linhaFim, fim);
-
-
-
-							let Utextotext = String(Utexto.text).toUpperCase();
-							let UtextoRange = new vscode.Range(Inicio, Fim);
-							edit.replace(UtextoRange, Utextotext)
-
-
 						}
 					}
 				})
@@ -102,8 +183,8 @@ function activate(context) {
 		const Linguagem = vscode.window.activeTextEditor.document.languageId;
 		const linguagemCapitalized = Linguagem.charAt(0).toUpperCase() + Linguagem.slice(1);
 		let LinguagemCase = true;
-		LinguagemCase = vscode.workspace.getConfiguration('zCase').get(`UpperCase${linguagemCapitalized}Documentos`);
-		vscode.workspace.getConfiguration('zCase').update(`UpperCase${linguagemCapitalized}Documentos`, !LinguagemCase).then(() => {
+		LinguagemCase = vscode.workspace.getConfiguration(linguagemCapitalized).get(`UpperCase${linguagemCapitalized}Documentos`);
+		vscode.workspace.getConfiguration(linguagemCapitalized).update(`UpperCase${linguagemCapitalized}Documentos`, !LinguagemCase).then(() => {
 
 			Statusbar();
 
@@ -137,7 +218,7 @@ function Statusbar() {
 	if (["cobol", "rexx", "jcl", "hlasm"].includes(Linguagem)) {
 		const linguagemCapitalized = Linguagem.charAt(0).toUpperCase() + Linguagem.slice(1);
 		let LinguagemCase = true;
-		LinguagemCase = vscode.workspace.getConfiguration('zCase').get(`UpperCase${linguagemCapitalized}Documentos`);
+		LinguagemCase = vscode.workspace.getConfiguration(linguagemCapitalized).get(`UpperCase${linguagemCapitalized}Documentos`);
 		let icon = '';
 
 		if (LinguagemCase) {
