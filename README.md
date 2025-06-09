@@ -11,7 +11,7 @@ Automatically converts to uppercase any key pressed for the mainframe languages 
 
 - Activate and deactivate zCase for active text document language in status bar.
 
-    ![StatusBar.png](imagens\\StatusBar.png)
+    ![StatusBar.png](./imagens/StatusBar.png)
 
 ## Requirements
 
@@ -48,7 +48,7 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-n/a
+- Copy/Paste maintains original case
 
 ## Release Notes
 

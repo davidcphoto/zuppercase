@@ -146,20 +146,20 @@ function activate(context) {
 
 								if (Utexto.text.length == 1) {
 									fim = inicio + 1;
-								} else {
-									fim = Alterações.contentChanges[i].range.start.character + 1;
+									// } else {
+									// 	fim = Alterações.contentChanges[i].range.start.character + 1;
+									// }
+
+
+									let Inicio = new vscode.Position(linhaInicio, inicio);
+									let Fim = new vscode.Position(linhaFim, fim);
+
+
+
+									let Utextotext = String(Utexto.text).toUpperCase();
+									let UtextoRange = new vscode.Range(Inicio, Fim);
+									edit.replace(UtextoRange, Utextotext)
 								}
-
-
-								let Inicio = new vscode.Position(linhaInicio, inicio);
-								let Fim = new vscode.Position(linhaFim, fim);
-
-
-
-								let Utextotext = String(Utexto.text).toUpperCase();
-								let UtextoRange = new vscode.Range(Inicio, Fim);
-								edit.replace(UtextoRange, Utextotext)
-
 
 							}
 						}
