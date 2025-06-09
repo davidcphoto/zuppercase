@@ -17,8 +17,8 @@
     "Hlasm",
     "uppercase"
   ],
-  "description": "Automatacy convert stroked keys to uppercase of Cobol, Jcl, Rexx, Hlasm languanges",
-  "version": "1.0.6",
+  "description": "Automatically convert stroked keys to uppercase of Cobol, Jcl, Rexx, Hlasm languages",
+  "version": "1.0.7",
   "engines": {
     "vscode": "^1.100.0"
   },
