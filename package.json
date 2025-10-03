@@ -18,9 +18,9 @@
     "uppercase"
   ],
   "description": "Automatically convert stroked keys to uppercase of Cobol, Jcl, Rexx, Hlasm languages",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "engines": {
-    "vscode": "^1.100.0"
+    "vscode": "^1.104.0"
   },
   "categories": [
     "Formatters"
@@ -132,13 +132,13 @@
     "test": "node ./test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.100.0",
     "@types/mocha": "^10.0.2",
-    "@types/node": "18.x",
-    "eslint": "^8.50.0",
-    "glob": "^10.3.3",
-    "mocha": "^10.2.0",
-    "typescript": "^5.2.2",
-    "@vscode/test-electron": "^2.3.4"
+    "@types/node": "^24.6.2",
+    "@types/vscode": "^1.104.0",
+    "@vscode/test-electron": "^2.3.4",
+    "eslint": "^9.36.0",
+    "glob": "^11.0.3",
+    "mocha": "^11.7.4",
+    "typescript": "^5.9.3"
   }
 }
